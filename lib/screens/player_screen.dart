@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:twity_bird_badminton/constants.dart';
 import 'package:twity_bird_badminton/screens/create_player_screen.dart';
+import 'package:twity_bird_badminton/services/player_service.dart';
+import 'package:twity_bird_badminton/widgets/player_tile.dart';
 
 class PlayerScreen extends StatefulWidget {
   const PlayerScreen({super.key});
@@ -60,8 +63,31 @@ class _PlayerScreenState extends State<PlayerScreen> {
             vertical: kVerticalPadding,
             horizontal: kHorizontalPadding,
           ),
-          child: const Column(
-            children: [],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Consumer<PlayerService>(
+                  builder: (context, playerService, child) {
+                    if (playerService.playerList.isNotEmpty) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: playerService.playerList.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) => PlayerTile(
+                          player: playerService.playerList[index],
+                        ),
+                      );
+                    } else {
+                      return const Center(
+                        child: Text(
+                          'No players to display',
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

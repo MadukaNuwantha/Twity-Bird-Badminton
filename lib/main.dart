@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:twity_bird_badminton/constants.dart';
 import 'package:twity_bird_badminton/screens/splash_screen.dart';
+import 'package:twity_bird_badminton/services/player_service.dart';
 import 'package:twity_bird_badminton/services/team_service.dart';
 
 void main() async {
@@ -13,6 +14,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => TeamService()),
+        ChangeNotifierProvider(create: (_) => PlayerService()),
       ],
       child: const MyApp(),
     ),

@@ -1,10 +1,10 @@
 import 'package:twity_bird_badminton/models/team.dart';
 
 class Player {
-  int? id;
+  String? id;
   String? firstName;
   String? lastName;
-  int? age;
+  String? age;
   String? dob;
   String? contactNumber;
   String? parentContactNumber;
@@ -23,10 +23,10 @@ class Player {
 
   factory Player.fromJson(Map<String, dynamic> json) {
     return Player(
-      id: json['id'] as int?,
+      id: json['id'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
-      age: json['age'] as int?,
+      age: json['age'] as String?,
       dob: json['dob'] as String?,
       contactNumber: json['contactNumber'] as String?,
       parentContactNumber: json['parentContactNumber'] as String?,

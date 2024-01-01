@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:twity_bird_badminton/constants.dart';
-import 'package:twity_bird_badminton/models/practice_timing.dart';
-import 'package:twity_bird_badminton/models/team.dart';
 import 'package:twity_bird_badminton/screens/create_team_screen.dart';
 import 'package:twity_bird_badminton/services/team_service.dart';
 import 'package:twity_bird_badminton/widgets/team_tile.dart';
