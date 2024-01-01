@@ -14,24 +14,36 @@ import 'package:twity_bird_badminton/widgets/custom_submit_button.dart';
 import 'package:twity_bird_badminton/widgets/custom_text_field.dart';
 import 'package:twity_bird_badminton/widgets/dynamic_practice_form.dart';
 
-class CreateTeamScreen extends StatefulWidget {
-  const CreateTeamScreen({super.key});
+class UpdateTeamScreen extends StatefulWidget {
+  const UpdateTeamScreen({super.key});
 
   @override
-  State<CreateTeamScreen> createState() => _CreateTeamScreenState();
+  State<UpdateTeamScreen> createState() => _UpdateTeamScreenState();
 }
 
-class _CreateTeamScreenState extends State<CreateTeamScreen> {
+class _UpdateTeamScreenState extends State<UpdateTeamScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> dynamicPracticeFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
-  List<Practice> practiceControllerList = [
-    Practice(
-      date: TextEditingController(),
-      startTime: TextEditingController(),
-      endTime: TextEditingController(),
-    ),
-  ];
+  List<Practice> practiceControllerList = [];
+
+  @override
+  void initState() {
+    Team selectedTeam = Provider.of<TeamService>(context, listen: false).selectedTeam;
+    nameController.text = selectedTeam.name!;
+    for (int i = 0; i < selectedTeam.practiceTiming!.length; i++) {
+      practiceControllerList.add(
+        Practice(
+          date: TextEditingController(text: selectedTeam.practiceTiming![i].day),
+          startTime: TextEditingController(text: selectedTeam.practiceTiming![i].startTime),
+          endTime: TextEditingController(text: selectedTeam.practiceTiming![i].endTime),
+        ),
+      );
+    }
+    setState(() {});
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +54,7 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
         foregroundColor: kLightSecondaryColor,
         shadowColor: kLightAccentColor,
         title: Text(
-          'Create Team',
+          'Update Team',
           style: GoogleFonts.inter(
             color: kDarkSecondaryColor,
             fontSize: 18,
@@ -121,11 +133,9 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: SizeConfig.blockSizeVertical * 48,
-                ),
+                const SizedBox(height: 20),
                 CustomSubmitButton(
-                  title: 'Create',
+                  title: 'Update',
                   color: kPrimaryColor,
                   onTap: () {
                     List<PracticeTiming> practiceTiming = [];
@@ -139,10 +149,11 @@ class _CreateTeamScreenState extends State<CreateTeamScreen> {
                       );
                     }
                     Team tempTeam = Team(
+                      id: Provider.of<TeamService>(context, listen: false).selectedTeam.id,
                       name: nameController.text,
                       practiceTiming: practiceTiming,
                     );
-                    Provider.of<TeamService>(context, listen: false).createTeam(
+                    Provider.of<TeamService>(context, listen: false).updateTeam(
                       context,
                       tempTeam,
                     );

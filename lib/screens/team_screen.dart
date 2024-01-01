@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:twity_bird_badminton/constants.dart';
 import 'package:twity_bird_badminton/screens/create_team_screen.dart';
+import 'package:twity_bird_badminton/screens/home_screen.dart';
+import 'package:twity_bird_badminton/screens/view_team_screen.dart';
 import 'package:twity_bird_badminton/services/team_service.dart';
 import 'package:twity_bird_badminton/widgets/team_tile.dart';
 
@@ -34,7 +36,12 @@ class _TeamScreenState extends State<TeamScreen> {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
+            );
           },
           child: Icon(
             Icons.arrow_back,
@@ -73,12 +80,25 @@ class _TeamScreenState extends State<TeamScreen> {
                         shrinkWrap: true,
                         itemCount: teamService.teamList.length,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) => TeamTile(
-                          team: teamService.teamList[index],
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            teamService.selectedTeam = teamService.teamList[index];
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ViewTeamScreen(),
+                              ),
+                            );
+                          },
+                          child: TeamTile(
+                            team: teamService.teamList[index],
+                          ),
                         ),
                       );
                     } else {
-                      return const Text('No teams to display');
+                      return const Center(
+                        child: Text('No teams to display'),
+                      );
                     }
                   },
                 ),

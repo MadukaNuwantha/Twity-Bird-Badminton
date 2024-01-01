@@ -16,6 +16,21 @@ class PlayerTile extends StatefulWidget {
 }
 
 class _PlayerTileState extends State<PlayerTile> {
+  List<String> practiceDays = [];
+
+  @override
+  void initState() {
+    if (widget.player.team!.practiceTiming != null && widget.player.team!.practiceTiming!.isNotEmpty) {
+      for (int i = 0; i < widget.player.team!.practiceTiming!.length; i++) {
+        practiceDays.add(
+          widget.player.team!.practiceTiming![i].day.toString(),
+        );
+      }
+    }
+    setState(() {});
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -60,8 +75,17 @@ class _PlayerTileState extends State<PlayerTile> {
                             widget.player.team!.name.toString(),
                             style: GoogleFonts.inter(
                               color: kDarkAccentColor,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            practiceDays.join(", "),
+                            style: GoogleFonts.inter(
+                              color: kDarkAccentColor,
                               fontSize: 12,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],

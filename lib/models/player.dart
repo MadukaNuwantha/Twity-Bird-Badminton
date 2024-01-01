@@ -6,7 +6,9 @@ class Player {
   String? lastName;
   String? age;
   String? dob;
+  String? contactNumberCountry;
   String? contactNumber;
+  String? parentContactNumberCountry;
   String? parentContactNumber;
   Team? team;
 
@@ -16,8 +18,10 @@ class Player {
     this.lastName,
     this.age,
     this.dob,
+    this.contactNumberCountry,
     this.contactNumber,
     this.parentContactNumber,
+    this.parentContactNumberCountry,
     this.team,
   });
 
@@ -28,7 +32,9 @@ class Player {
       lastName: json['lastName'] as String?,
       age: json['age'] as String?,
       dob: json['dob'] as String?,
+      contactNumberCountry: json['contactNumberCountry'] as String?,
       contactNumber: json['contactNumber'] as String?,
+      parentContactNumberCountry: json['parentContactNumberCountry'] as String?,
       parentContactNumber: json['parentContactNumber'] as String?,
       team: json['team'] != null ? Team.fromJson(json['team'] as Map<String, dynamic>) : null,
     );
@@ -41,7 +47,9 @@ class Player {
       'lastName': lastName,
       'age': age,
       'dob': dob,
+      'contactNumberCountry': contactNumberCountry,
       'contactNumber': contactNumber,
+      'parentContactNumberCountry': parentContactNumberCountry,
       'parentContactNumber': parentContactNumber,
       'team': team?.toJson(),
     };

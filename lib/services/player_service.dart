@@ -48,7 +48,9 @@ class PlayerService extends ChangeNotifier {
             lastName: player.lastName,
             age: player.age,
             dob: player.dob,
+            contactNumberCountry: player.contactNumberCountry,
             contactNumber: player.contactNumber,
+            parentContactNumberCountry: player.parentContactNumberCountry,
             parentContactNumber: player.parentContactNumber,
             team: player.team,
           );
@@ -80,24 +82,46 @@ class PlayerService extends ChangeNotifier {
     }
   }
 
-  Future<void> updateTeam(
+  Future<void> updatePlayer(
     BuildContext context,
     Player player,
   ) async {
     try {
-      await _firebaseFirestore.collection('players').doc(player.id).update(player.toJson()).whenComplete(
+      await _firebaseFirestore.collection('players').doc(selectedPlayer.id).update(player.toJson()).whenComplete(
         () {
           getPlayers(context).whenComplete(
             () => Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const TeamScreen(),
+                builder: (context) => const PlayerScreen(),
               ),
               (route) => false,
             ),
           );
         },
       );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        errorSnackBar(e.toString()),
+      );
+    }
+  }
+
+  Future<void> deletePlayer(
+    BuildContext context,
+  ) async {
+    try {
+      await _firebaseFirestore.collection('players').doc(selectedPlayer.id).delete().whenComplete(
+            () => getPlayers(context).whenComplete(
+              () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PlayerScreen(),
+                ),
+                (route) => false,
+              ),
+            ),
+          );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         errorSnackBar(e.toString()),

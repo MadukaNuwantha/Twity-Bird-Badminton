@@ -35,11 +35,11 @@ class _CustomTimeFieldState extends State<CustomTimeField> {
         picked.minute,
       );
 
-      setState(
-        () {
-          widget.controller.text = DateFormat('HH:mm').format(selectedTime).toString();
-        },
-      );
+      final String formattedTime = DateFormat('h:mm a').format(selectedTime);
+
+      setState(() {
+        widget.controller.text = formattedTime;
+      });
     }
   }
 

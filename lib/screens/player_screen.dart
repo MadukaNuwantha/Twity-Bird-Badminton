@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:twity_bird_badminton/constants.dart';
 import 'package:twity_bird_badminton/screens/create_player_screen.dart';
+import 'package:twity_bird_badminton/screens/home_screen.dart';
+import 'package:twity_bird_badminton/screens/view_player_screen.dart';
 import 'package:twity_bird_badminton/services/player_service.dart';
 import 'package:twity_bird_badminton/widgets/player_tile.dart';
 
@@ -34,7 +36,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
+            );
           },
           child: Icon(
             Icons.arrow_back,
@@ -73,8 +80,19 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         shrinkWrap: true,
                         itemCount: playerService.playerList.length,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) => PlayerTile(
-                          player: playerService.playerList[index],
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            playerService.selectedPlayer = playerService.playerList[index];
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ViewPlayerScreen(),
+                              ),
+                            );
+                          },
+                          child: PlayerTile(
+                            player: playerService.playerList[index],
+                          ),
                         ),
                       );
                     } else {

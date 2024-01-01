@@ -96,4 +96,26 @@ class TeamService extends ChangeNotifier {
       );
     }
   }
+
+  Future<void> deleteTeam(
+    BuildContext context,
+  ) async {
+    try {
+      await _firebaseFirestore.collection('teams').doc(selectedTeam.id).delete().whenComplete(
+            () => getTeams(context).whenComplete(
+              () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TeamScreen(),
+                ),
+                (route) => false,
+              ),
+            ),
+          );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        errorSnackBar(e.toString()),
+      );
+    }
+  }
 }

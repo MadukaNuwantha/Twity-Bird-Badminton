@@ -6,6 +6,7 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:twity_bird_badminton/constants.dart';
 import 'package:twity_bird_badminton/screens/home_screen.dart';
+import 'package:twity_bird_badminton/services/player_service.dart';
 import 'package:twity_bird_badminton/services/team_service.dart';
 import 'package:twity_bird_badminton/size_config.dart';
 
@@ -24,13 +25,15 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 3),
       () {
         Provider.of<TeamService>(context, listen: false).getTeams(context).then(
-              (value) => Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
-                ),
-                (route) => false,
-              ),
+              (value) => Provider.of<PlayerService>(context, listen: false).getPlayers(context).then(
+                    (value) => Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                      (route) => false,
+                    ),
+                  ),
             );
       },
     );

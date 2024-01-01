@@ -16,14 +16,14 @@ import 'package:twity_bird_badminton/widgets/custom_popup_field.dart';
 import 'package:twity_bird_badminton/widgets/custom_submit_button.dart';
 import 'package:twity_bird_badminton/widgets/custom_text_field.dart';
 
-class CreatePlayerScreen extends StatefulWidget {
-  const CreatePlayerScreen({super.key});
+class UpdatePlayerScreen extends StatefulWidget {
+  const UpdatePlayerScreen({super.key});
 
   @override
-  State<CreatePlayerScreen> createState() => _CreatePlayerScreenState();
+  State<UpdatePlayerScreen> createState() => _UpdatePlayerScreenState();
 }
 
-class _CreatePlayerScreenState extends State<CreatePlayerScreen> {
+class _UpdatePlayerScreenState extends State<UpdatePlayerScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -35,6 +35,23 @@ class _CreatePlayerScreenState extends State<CreatePlayerScreen> {
   TextEditingController parentContactNumberController = TextEditingController();
   TextEditingController teamIdController = TextEditingController();
   TextEditingController teamNameController = TextEditingController();
+
+  @override
+  void initState() {
+    Player selectedPlayer = Provider.of<PlayerService>(context, listen: false).selectedPlayer;
+    firstNameController.text = selectedPlayer.firstName!;
+    lastNameController.text = selectedPlayer.lastName!;
+    ageController.text = selectedPlayer.age!;
+    dobController.text = selectedPlayer.dob!;
+    contactNumberCountryController.text = selectedPlayer.contactNumberCountry!;
+    contactNumberController.text = selectedPlayer.contactNumber!;
+    parentContactNumberCountryController.text = selectedPlayer.parentContactNumberCountry!;
+    parentContactNumberController.text = selectedPlayer.parentContactNumber!;
+    teamIdController.text = selectedPlayer.team!.id!;
+    teamNameController.text = selectedPlayer.team!.name!;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -223,7 +240,7 @@ class _CreatePlayerScreenState extends State<CreatePlayerScreen> {
                       const SizedBox(height: 20),
                       const Spacer(),
                       CustomSubmitButton(
-                        title: 'Create Player',
+                        title: 'Update Player',
                         color: kPrimaryColor,
                         onTap: () {
                           if (formKey.currentState!.validate()) {
@@ -243,7 +260,7 @@ class _CreatePlayerScreenState extends State<CreatePlayerScreen> {
                               parentContactNumber: parentContactNumberController.text,
                               team: tempTeam,
                             );
-                            Provider.of<PlayerService>(context, listen: false).createPlayer(context, tempPlayer);
+                            Provider.of<PlayerService>(context, listen: false).updatePlayer(context, tempPlayer);
                           }
                         },
                       ),

@@ -25,8 +25,8 @@ class _CustomDateFieldState extends State<CustomDateField> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 3650)),
+      firstDate: DateTime.now().subtract(const Duration(days: 36500)),
+      lastDate: DateTime.now(),
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
@@ -44,7 +44,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
     );
     if (picked != null && picked.toString() != widget.controller?.text) {
       setState(
-            () {
+        () {
           widget.controller?.text = DateFormat('yyyy-MM-dd').format(picked).toString();
         },
       );
