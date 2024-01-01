@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "542337860884",
+    "project_id": "tbc-badminton-b4acf",
+    "storage_bucket": "tbc-badminton-b4acf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542337860884:android:72061b4e76e8c7b6bcee01",
+        "android_client_info": {
+          "package_name": "com.example.tbc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAixI55RwSqCyEdz6yIFxCy628eeQgZJR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542337860884:android:263814cd052a7b02bcee01",
+        "android_client_info": {
+          "package_name": "com.twitybird.twity_bird_badminton"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAixI55RwSqCyEdz6yIFxCy628eeQgZJR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
